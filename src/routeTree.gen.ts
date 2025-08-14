@@ -13,8 +13,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PokedexAppLayoutRouteImport } from './routes/pokedex/_appLayout'
-import { Route as PokedexappIndexRouteImport } from './routes/pokedex/(app)/index'
-import { Route as PokedexappPokemonIdRouteImport } from './routes/pokedex/(app)/$pokemonId'
+import { Route as PokedexAppLayoutIndexRouteImport } from './routes/pokedex/_appLayout/index'
+import { Route as PokedexAppLayoutGamesRouteImport } from './routes/pokedex/_appLayout/games'
+import { Route as PokedexAppLayoutFavoritesRouteImport } from './routes/pokedex/_appLayout/favorites'
+import { Route as PokedexAppLayoutAboutRouteImport } from './routes/pokedex/_appLayout/about'
+import { Route as PokedexAppLayoutPokemonIdRouteImport } from './routes/pokedex/_appLayout/$pokemonId'
 
 const PokedexRouteImport = createFileRoute('/pokedex')()
 
@@ -32,48 +35,90 @@ const PokedexAppLayoutRoute = PokedexAppLayoutRouteImport.update({
   id: '/_appLayout',
   getParentRoute: () => PokedexRoute,
 } as any)
-const PokedexappIndexRoute = PokedexappIndexRouteImport.update({
-  id: '/(app)/',
+const PokedexAppLayoutIndexRoute = PokedexAppLayoutIndexRouteImport.update({
+  id: '/',
   path: '/',
-  getParentRoute: () => PokedexRoute,
+  getParentRoute: () => PokedexAppLayoutRoute,
 } as any)
-const PokedexappPokemonIdRoute = PokedexappPokemonIdRouteImport.update({
-  id: '/(app)/$pokemonId',
-  path: '/$pokemonId',
-  getParentRoute: () => PokedexRoute,
+const PokedexAppLayoutGamesRoute = PokedexAppLayoutGamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => PokedexAppLayoutRoute,
 } as any)
+const PokedexAppLayoutFavoritesRoute =
+  PokedexAppLayoutFavoritesRouteImport.update({
+    id: '/favorites',
+    path: '/favorites',
+    getParentRoute: () => PokedexAppLayoutRoute,
+  } as any)
+const PokedexAppLayoutAboutRoute = PokedexAppLayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PokedexAppLayoutRoute,
+} as any)
+const PokedexAppLayoutPokemonIdRoute =
+  PokedexAppLayoutPokemonIdRouteImport.update({
+    id: '/$pokemonId',
+    path: '/$pokemonId',
+    getParentRoute: () => PokedexAppLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/pokedex': typeof PokedexAppLayoutRoute
-  '/pokedex/$pokemonId': typeof PokedexappPokemonIdRoute
-  '/pokedex/': typeof PokedexappIndexRoute
+  '/pokedex': typeof PokedexAppLayoutRouteWithChildren
+  '/pokedex/$pokemonId': typeof PokedexAppLayoutPokemonIdRoute
+  '/pokedex/about': typeof PokedexAppLayoutAboutRoute
+  '/pokedex/favorites': typeof PokedexAppLayoutFavoritesRoute
+  '/pokedex/games': typeof PokedexAppLayoutGamesRoute
+  '/pokedex/': typeof PokedexAppLayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/pokedex': typeof PokedexappIndexRoute
-  '/pokedex/$pokemonId': typeof PokedexappPokemonIdRoute
+  '/pokedex': typeof PokedexAppLayoutIndexRoute
+  '/pokedex/$pokemonId': typeof PokedexAppLayoutPokemonIdRoute
+  '/pokedex/about': typeof PokedexAppLayoutAboutRoute
+  '/pokedex/favorites': typeof PokedexAppLayoutFavoritesRoute
+  '/pokedex/games': typeof PokedexAppLayoutGamesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/pokedex': typeof PokedexRouteWithChildren
-  '/pokedex/_appLayout': typeof PokedexAppLayoutRoute
-  '/pokedex/(app)/$pokemonId': typeof PokedexappPokemonIdRoute
-  '/pokedex/(app)/': typeof PokedexappIndexRoute
+  '/pokedex/_appLayout': typeof PokedexAppLayoutRouteWithChildren
+  '/pokedex/_appLayout/$pokemonId': typeof PokedexAppLayoutPokemonIdRoute
+  '/pokedex/_appLayout/about': typeof PokedexAppLayoutAboutRoute
+  '/pokedex/_appLayout/favorites': typeof PokedexAppLayoutFavoritesRoute
+  '/pokedex/_appLayout/games': typeof PokedexAppLayoutGamesRoute
+  '/pokedex/_appLayout/': typeof PokedexAppLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pokedex' | '/pokedex/$pokemonId' | '/pokedex/'
+  fullPaths:
+    | '/'
+    | '/pokedex'
+    | '/pokedex/$pokemonId'
+    | '/pokedex/about'
+    | '/pokedex/favorites'
+    | '/pokedex/games'
+    | '/pokedex/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pokedex' | '/pokedex/$pokemonId'
+  to:
+    | '/'
+    | '/pokedex'
+    | '/pokedex/$pokemonId'
+    | '/pokedex/about'
+    | '/pokedex/favorites'
+    | '/pokedex/games'
   id:
     | '__root__'
     | '/'
     | '/pokedex'
     | '/pokedex/_appLayout'
-    | '/pokedex/(app)/$pokemonId'
-    | '/pokedex/(app)/'
+    | '/pokedex/_appLayout/$pokemonId'
+    | '/pokedex/_appLayout/about'
+    | '/pokedex/_appLayout/favorites'
+    | '/pokedex/_appLayout/games'
+    | '/pokedex/_appLayout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,33 +149,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PokedexAppLayoutRouteImport
       parentRoute: typeof PokedexRoute
     }
-    '/pokedex/(app)/': {
-      id: '/pokedex/(app)/'
+    '/pokedex/_appLayout/': {
+      id: '/pokedex/_appLayout/'
       path: '/'
       fullPath: '/pokedex/'
-      preLoaderRoute: typeof PokedexappIndexRouteImport
-      parentRoute: typeof PokedexRoute
+      preLoaderRoute: typeof PokedexAppLayoutIndexRouteImport
+      parentRoute: typeof PokedexAppLayoutRoute
     }
-    '/pokedex/(app)/$pokemonId': {
-      id: '/pokedex/(app)/$pokemonId'
+    '/pokedex/_appLayout/games': {
+      id: '/pokedex/_appLayout/games'
+      path: '/games'
+      fullPath: '/pokedex/games'
+      preLoaderRoute: typeof PokedexAppLayoutGamesRouteImport
+      parentRoute: typeof PokedexAppLayoutRoute
+    }
+    '/pokedex/_appLayout/favorites': {
+      id: '/pokedex/_appLayout/favorites'
+      path: '/favorites'
+      fullPath: '/pokedex/favorites'
+      preLoaderRoute: typeof PokedexAppLayoutFavoritesRouteImport
+      parentRoute: typeof PokedexAppLayoutRoute
+    }
+    '/pokedex/_appLayout/about': {
+      id: '/pokedex/_appLayout/about'
+      path: '/about'
+      fullPath: '/pokedex/about'
+      preLoaderRoute: typeof PokedexAppLayoutAboutRouteImport
+      parentRoute: typeof PokedexAppLayoutRoute
+    }
+    '/pokedex/_appLayout/$pokemonId': {
+      id: '/pokedex/_appLayout/$pokemonId'
       path: '/$pokemonId'
       fullPath: '/pokedex/$pokemonId'
-      preLoaderRoute: typeof PokedexappPokemonIdRouteImport
-      parentRoute: typeof PokedexRoute
+      preLoaderRoute: typeof PokedexAppLayoutPokemonIdRouteImport
+      parentRoute: typeof PokedexAppLayoutRoute
     }
   }
 }
 
+interface PokedexAppLayoutRouteChildren {
+  PokedexAppLayoutPokemonIdRoute: typeof PokedexAppLayoutPokemonIdRoute
+  PokedexAppLayoutAboutRoute: typeof PokedexAppLayoutAboutRoute
+  PokedexAppLayoutFavoritesRoute: typeof PokedexAppLayoutFavoritesRoute
+  PokedexAppLayoutGamesRoute: typeof PokedexAppLayoutGamesRoute
+  PokedexAppLayoutIndexRoute: typeof PokedexAppLayoutIndexRoute
+}
+
+const PokedexAppLayoutRouteChildren: PokedexAppLayoutRouteChildren = {
+  PokedexAppLayoutPokemonIdRoute: PokedexAppLayoutPokemonIdRoute,
+  PokedexAppLayoutAboutRoute: PokedexAppLayoutAboutRoute,
+  PokedexAppLayoutFavoritesRoute: PokedexAppLayoutFavoritesRoute,
+  PokedexAppLayoutGamesRoute: PokedexAppLayoutGamesRoute,
+  PokedexAppLayoutIndexRoute: PokedexAppLayoutIndexRoute,
+}
+
+const PokedexAppLayoutRouteWithChildren =
+  PokedexAppLayoutRoute._addFileChildren(PokedexAppLayoutRouteChildren)
+
 interface PokedexRouteChildren {
-  PokedexAppLayoutRoute: typeof PokedexAppLayoutRoute
-  PokedexappPokemonIdRoute: typeof PokedexappPokemonIdRoute
-  PokedexappIndexRoute: typeof PokedexappIndexRoute
+  PokedexAppLayoutRoute: typeof PokedexAppLayoutRouteWithChildren
 }
 
 const PokedexRouteChildren: PokedexRouteChildren = {
-  PokedexAppLayoutRoute: PokedexAppLayoutRoute,
-  PokedexappPokemonIdRoute: PokedexappPokemonIdRoute,
-  PokedexappIndexRoute: PokedexappIndexRoute,
+  PokedexAppLayoutRoute: PokedexAppLayoutRouteWithChildren,
 }
 
 const PokedexRouteWithChildren =

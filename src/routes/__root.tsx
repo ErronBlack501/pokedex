@@ -12,7 +12,7 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
-    <div className="w-full min-h-screen bg-[#DD092F]">
+    <div className="min-h-screen w-full bg-[#DD092F]">
       <Outlet />
       <TanstackDevtools
         config={{

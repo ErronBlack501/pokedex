@@ -9,6 +9,6 @@ body {
 @layer base {
   html,
   body {
-    @apply m-0 p-0 bg-[#DD092F];
+    @apply m-0 bg-[#DD092F] p-0;
   }
 }

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/pokedex/(app)/$pokemonId')({
+export const Route = createFileRoute('/pokedex/_appLayout/$pokemonId')({
   component: RouteComponent,
 })
 

@@ -1,5 +1,5 @@
 export default function PokeballIcon({
-  className = 'w-6 h-6',
+  className = 'w-5 h-5',
   active = false,
   hover = false,
 }: {
@@ -9,7 +9,9 @@ export default function PokeballIcon({
 }) {
   return (
     <svg
-      className={`${className} transition-colors duration-200 ${active || hover ? 'text-blue-500' : 'text-gray-600'}`}
+      className={`${className} transition-colors duration-200 ${
+        active || hover ? 'text-[#3B82F6]' : 'text-white'
+      }`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 980 978.94"
       fill="currentColor"

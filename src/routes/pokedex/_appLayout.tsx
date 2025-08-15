@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { InfoIcon, Languages, Gamepad, Heart } from 'lucide-react'
-import PokeballIcon from '../../components/PokeballIcon'
+import PokeballIcon from '../../components/pokeballIcon'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/pokedex/_appLayout')({
@@ -8,12 +8,13 @@ export const Route = createFileRoute('/pokedex/_appLayout')({
 })
 
 function RouteComponent() {
-  const [isHovered, setIsHovered] = useState(false)
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  
   return (
-    <div className="min-h-screen w-full">
-      <nav className="flex flex-row items-center justify-between gap-4 bg-[#DD092F] p-4 shadow-lg">
-        {/* Logo Section */}
-        <div className="flex items-center gap-2 bg-[#DD092F] p-4">
+    <div className="flex min-h-screen w-full flex-col items-center">
+      <nav className="flex w-full flex-row items-center bg-[#DD092F] p-4 shadow-lg">
+        {/* Logo Section - 20% */}
+        <div className="flex w-1/5 items-center justify-start gap-2">
           <img
             src="/src/assets/Pokeball.png"
             alt="mini pokeball image"
@@ -24,25 +25,26 @@ function RouteComponent() {
           </h1>
         </div>
 
-        {/* Navigation Links */}
-        <div className="flex items-center gap-1 rounded-lg bg-white p-0 shadow-inner">
+        {/* Navigation Links - 60% */}
+        <div className="flex w-3/5 items-center justify-center gap-1">
           <Link to="/pokedex" activeOptions={{ exact: true }}>
             {({ isActive }) => (
               <div className="relative">
                 <div
-                  onMouseEnter={() => {
-                    setIsHovered(true)
-                  }}
-                  onMouseLeave={() => {
-                    setIsHovered(false)
-                  }}
+                  onMouseEnter={() => setHoveredLink('pokemon')}
+                  onMouseLeave={() => setHoveredLink(null)}
                   className={`flex gap-1.5 rounded-md px-4 py-2.5 font-medium transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-[#3B82F6]'
+                      : hoveredLink === 'pokemon'
+                      ? 'bg-gray-50 text-[#3B82F6]'
+                      : 'text-white'
                   }`}
                 >
-                  <PokeballIcon active={isActive} hover={isHovered} />
+                  <PokeballIcon 
+                    active={isActive} 
+                    hover={hoveredLink === 'pokemon'} 
+                  />
                   <span>Pokémons</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -57,13 +59,17 @@ function RouteComponent() {
             {({ isActive }) => (
               <div className="relative">
                 <div
+                  onMouseEnter={() => setHoveredLink('games')}
+                  onMouseLeave={() => setHoveredLink(null)}
                   className={`flex gap-1.5 rounded-md px-4 py-2.5 font-medium transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-[#3B82F6]'
+                      : hoveredLink === 'games'
+                      ? 'bg-gray-50 text-[#3B82F6]'
+                      : 'text-white'
                   }`}
                 >
-                  <Gamepad className="h-6 w-6" />
+                  <Gamepad className="h-5 w-5 transition-colors duration-200" />
                   <span>Games</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -78,13 +84,17 @@ function RouteComponent() {
             {({ isActive }) => (
               <div className="relative">
                 <div
+                  onMouseEnter={() => setHoveredLink('favorites')}
+                  onMouseLeave={() => setHoveredLink(null)}
                   className={`flex gap-1.5 rounded-md px-4 py-2.5 font-medium transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-[#3B82F6]'
+                      : hoveredLink === 'favorites'
+                      ? 'bg-gray-50 text-[#3B82F6]'
+                      : 'text-white'
                   }`}
                 >
-                  <Heart className="h-6 w-6" />
+                  <Heart className="h-5 w-5 transition-colors duration-200" />
                   <span>Favorites</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -99,13 +109,17 @@ function RouteComponent() {
             {({ isActive }) => (
               <div className="relative">
                 <div
+                  onMouseEnter={() => setHoveredLink('about')}
+                  onMouseLeave={() => setHoveredLink(null)}
                   className={`flex gap-1.5 rounded-md px-4 py-2.5 font-medium transition-all duration-200 ${
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-[#3B82F6]'
+                      : hoveredLink === 'about'
+                      ? 'bg-gray-50 text-[#3B82F6]'
+                      : 'text-white'
                   }`}
                 >
-                  <InfoIcon className="h-6 w-6" />
+                  <InfoIcon className="h-5 w-5 transition-colors duration-200" />
                   <span>About</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -117,10 +131,10 @@ function RouteComponent() {
           </Link>
         </div>
 
-        {/* Right Section */}
-        <div className="flex items-center justify-evenly gap-3 bg-[#DD092F] text-white">
+        {/* Right Section - 20% */}
+        <div className="flex w-1/5 items-center justify-end gap-3">
           <button className="rounded-full p-2 transition-colors duration-200 hover:bg-red-700">
-            <Languages className="h-5 w-5" />
+            <Languages className="h-5 w-5 text-white" />
           </button>
           <a
             href="https://github.com/ErronBlack501/pokedex"
@@ -136,8 +150,9 @@ function RouteComponent() {
           </a>
         </div>
       </nav>
-
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const Route = createFileRoute('/pokedex/_appLayout')({
 
 function RouteComponent() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
-  
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
       <nav className="flex w-full flex-row items-center bg-[#DD092F] p-4 shadow-lg">
@@ -37,13 +37,13 @@ function RouteComponent() {
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
                       : hoveredLink === 'pokemon'
-                      ? 'bg-gray-50 text-[#3B82F6]'
-                      : 'text-white'
+                        ? 'bg-gray-50 text-[#3B82F6]'
+                        : 'text-white'
                   }`}
                 >
-                  <PokeballIcon 
-                    active={isActive} 
-                    hover={hoveredLink === 'pokemon'} 
+                  <PokeballIcon
+                    active={isActive}
+                    hover={hoveredLink === 'pokemon'}
                   />
                   <span>Pokémons</span>
                 </div>
@@ -65,11 +65,11 @@ function RouteComponent() {
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
                       : hoveredLink === 'games'
-                      ? 'bg-gray-50 text-[#3B82F6]'
-                      : 'text-white'
+                        ? 'bg-gray-50 text-[#3B82F6]'
+                        : 'text-white'
                   }`}
                 >
-                  <Gamepad className="h-5 w-5 transition-colors duration-200" />
+                  <Gamepad className="h-6 w-6 transition-colors duration-200" />
                   <span>Games</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -90,11 +90,11 @@ function RouteComponent() {
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
                       : hoveredLink === 'favorites'
-                      ? 'bg-gray-50 text-[#3B82F6]'
-                      : 'text-white'
+                        ? 'bg-gray-50 text-[#3B82F6]'
+                        : 'text-white'
                   }`}
                 >
-                  <Heart className="h-5 w-5 transition-colors duration-200" />
+                  <Heart className="h-5 w-6 transition-colors duration-200" />
                   <span>Favorites</span>
                 </div>
                 {/* Underline pour le lien actif */}
@@ -115,11 +115,11 @@ function RouteComponent() {
                     isActive
                       ? 'bg-blue-50 text-[#3B82F6]'
                       : hoveredLink === 'about'
-                      ? 'bg-gray-50 text-[#3B82F6]'
-                      : 'text-white'
+                        ? 'bg-gray-50 text-[#3B82F6]'
+                        : 'text-white'
                   }`}
                 >
-                  <InfoIcon className="h-5 w-5 transition-colors duration-200" />
+                  <InfoIcon className="h-6 w-6 transition-colors duration-200" />
                   <span>About</span>
                 </div>
                 {/* Underline pour le lien actif */}
